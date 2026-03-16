@@ -7,7 +7,7 @@ export interface Message {
   timestamp: Date;
 }
 
-export type Tab = 'home' | 'expertise' | 'solutions' | 'values' | 'contact';
+export type Tab = 'home' | 'expertise' | 'innovation' | 'international' | 'about' | 'contact';
 
 export interface Expert {
   name: string;

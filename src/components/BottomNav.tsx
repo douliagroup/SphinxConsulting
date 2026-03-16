@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { MessageSquare, Briefcase, Rocket, ShieldCheck, Mail } from 'lucide-react';
+import { MessageSquare, Briefcase, Rocket, Globe, Info, Mail } from 'lucide-react';
 import { Tab } from '../types';
 
 interface BottomNavProps {
@@ -10,11 +10,12 @@ interface BottomNavProps {
 
 export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab }) => {
   const tabs: { id: Tab; icon: React.ReactNode; label: string }[] = [
-    { id: 'home', icon: <MessageSquare size={20} />, label: 'AI' },
-    { id: 'expertise', icon: <Briefcase size={20} />, label: 'Expertise' },
-    { id: 'solutions', icon: <Rocket size={20} />, label: 'Solutions' },
-    { id: 'values', icon: <ShieldCheck size={20} />, label: 'Valeurs' },
-    { id: 'contact', icon: <Mail size={20} />, label: 'Contact' },
+    { id: 'home', icon: <MessageSquare size={18} />, label: 'AI' },
+    { id: 'expertise', icon: <Briefcase size={18} />, label: 'Expertise' },
+    { id: 'innovation', icon: <Rocket size={18} />, label: 'Innovation' },
+    { id: 'international', icon: <Globe size={18} />, label: 'Intl' },
+    { id: 'about', icon: <Info size={18} />, label: 'Propos' },
+    { id: 'contact', icon: <Mail size={18} />, label: 'Contact' },
   ];
 
   return (

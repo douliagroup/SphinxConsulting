@@ -1,8 +1,42 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Mail, Phone, MapPin, Send, ChevronDown, Globe } from 'lucide-react';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
+
+const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="glass-card overflow-hidden">
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-4 flex justify-between items-center text-left hover:bg-white/5 transition-colors"
+      >
+        <span className="font-semibold text-sm">{question}</span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ChevronDown size={18} className="text-sphinx-red" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="p-4 pt-0 text-xs text-white/60 leading-relaxed border-t border-white/5">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 interface ContactProps {
   lang: Language;
@@ -10,7 +44,7 @@ interface ContactProps {
 
 export const Contact: React.FC<ContactProps> = ({ lang }) => {
   const t = CONTENT[lang].contact;
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', firstName: '', email: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,8 +54,8 @@ export const Contact: React.FC<ContactProps> = ({ lang }) => {
       btn.classList.add('animate-ping');
       setTimeout(() => btn.classList.remove('animate-ping'), 500);
     }
-    alert(lang === 'fr' ? 'Message envoyé avec succès !' : 'Message sent successfully!');
-    setForm({ name: '', email: '', message: '' });
+    alert(lang === 'fr' ? 'Demande envoyée avec succès !' : 'Request sent successfully!');
+    setForm({ name: '', firstName: '', email: '', message: '' });
   };
 
   return (
@@ -34,15 +68,27 @@ export const Contact: React.FC<ContactProps> = ({ lang }) => {
       </motion.div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <label className="text-xs font-bold uppercase text-white/40 ml-1">{t.name}</label>
-          <input
-            type="text"
-            required
-            value={form.name}
-            onChange={e => setForm({...form, name: e.target.value})}
-            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:outline-none focus:border-sphinx-red/50 transition-colors"
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase text-white/40 ml-1">{t.name}</label>
+            <input
+              type="text"
+              required
+              value={form.name}
+              onChange={e => setForm({...form, name: e.target.value})}
+              className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:outline-none focus:border-sphinx-red/50 transition-colors"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase text-white/40 ml-1">{t.firstName}</label>
+            <input
+              type="text"
+              required
+              value={form.firstName}
+              onChange={e => setForm({...form, firstName: e.target.value})}
+              className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:outline-none focus:border-sphinx-red/50 transition-colors"
+            />
+          </div>
         </div>
         <div className="space-y-2">
           <label className="text-xs font-bold uppercase text-white/40 ml-1">{t.email}</label>
@@ -84,6 +130,10 @@ export const Contact: React.FC<ContactProps> = ({ lang }) => {
           <div className="flex items-center gap-4 glass-card p-4">
             <Mail className="text-sphinx-red shrink-0" size={20} />
             <p className="text-sm text-white/70">{t.emailAddr}</p>
+          </div>
+          <div className="flex items-center gap-4 glass-card p-4">
+            <Globe className="text-sphinx-red shrink-0" size={20} />
+            <p className="text-sm text-white/70">{t.web}</p>
           </div>
         </div>
       </div>

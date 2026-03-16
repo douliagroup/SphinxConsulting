@@ -3,12 +3,14 @@ import { motion } from 'motion/react';
 import { AIScanImage } from './AIScanImage';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
+import { MessageSquare } from 'lucide-react';
 
 interface ExpertiseProps {
   lang: Language;
+  onAskAI?: (prompt: string) => void;
 }
 
-export const Expertise: React.FC<ExpertiseProps> = ({ lang }) => {
+export const Expertise: React.FC<ExpertiseProps> = ({ lang, onAskAI }) => {
   const t = CONTENT[lang].expertise;
 
   return (
@@ -22,21 +24,39 @@ export const Expertise: React.FC<ExpertiseProps> = ({ lang }) => {
       </motion.div>
 
       <div className="space-y-6">
-        {t.experts.map((expert, idx) => (
+        {t.domains.map((domain, idx) => (
           <motion.div
-            key={expert.name}
+            key={domain.title}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="glass-card p-4 flex gap-4 items-center"
+            className="glass-card p-4 flex flex-col gap-4"
           >
-            <div className="w-20 h-20 shrink-0">
-              <AIScanImage src={expert.image} alt={expert.name} className="w-full h-full" />
+            <div className="flex gap-4 items-center">
+              <div className="w-20 h-20 shrink-0">
+                <AIScanImage src={domain.image} alt={domain.title} className="w-full h-full" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-lg leading-tight">{domain.title}</h3>
+                <p className="text-white/60 text-xs mt-1">{domain.desc}</p>
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-lg">{expert.name}</h3>
-              <p className="text-sphinx-red text-xs font-semibold uppercase tracking-wider mb-1">{expert.title}</p>
-              <p className="text-white/50 text-xs">{expert.specialty}</p>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex flex-wrap gap-2">
+                {domain.tags.map(tag => (
+                  <span key={tag} className="text-[9px] px-2 py-1 bg-sphinx-red/10 text-sphinx-red border border-sphinx-red/20 rounded-full font-bold uppercase tracking-wider">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <button 
+                onClick={() => onAskAI?.(`Parle-moi de votre expertise en : ${domain.title}. ${domain.desc}`)}
+                className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
+              >
+                <MessageSquare size={12} />
+                Sphinx-AI
+              </button>
             </div>
           </motion.div>
         ))}

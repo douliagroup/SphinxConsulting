@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Cpu, Zap, Share2 } from 'lucide-react';
+import { Cpu, Zap, Share2, MessageSquare } from 'lucide-react';
 import { AIScanImage } from './AIScanImage';
 import { CONTENT, ASSETS } from '../constants';
 import { Language } from '../types';
 
 interface InnovationProps {
   lang: Language;
+  onAskAI?: (prompt: string) => void;
 }
 
-export const Innovation: React.FC<InnovationProps> = ({ lang }) => {
+export const Innovation: React.FC<InnovationProps> = ({ lang, onAskAI }) => {
   const t = CONTENT[lang].innovation;
 
   const getIcon = (id: string) => {
@@ -40,11 +41,20 @@ export const Innovation: React.FC<InnovationProps> = ({ lang }) => {
             transition={{ delay: idx * 0.1 }}
             className="glass-card p-6 space-y-4"
           >
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-white/5 rounded-xl border border-white/10">
-                {getIcon(sol.id)}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+                  {getIcon(sol.id)}
+                </div>
+                <h3 className="text-xl font-bold">{sol.title}</h3>
               </div>
-              <h3 className="text-xl font-bold">{sol.title}</h3>
+              <button 
+                onClick={() => onAskAI?.(`Détaille-moi la solution d'innovation : ${sol.title}. ${sol.description}`)}
+                className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
+              >
+                <MessageSquare size={12} />
+                Sphinx-AI
+              </button>
             </div>
             <p className="text-white/60 text-sm">{sol.description}</p>
             <div className="flex flex-wrap gap-2">

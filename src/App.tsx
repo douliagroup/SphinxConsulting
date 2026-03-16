@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChatInterface } from './components/ChatInterface';
 import { Expertise } from './components/Expertise';
 import { Innovation } from './components/Innovation';
-import { Values } from './components/Values';
+import { International } from './components/International';
+import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { BottomNav } from './components/BottomNav';
 import { Language, Tab } from './types';
@@ -11,21 +12,29 @@ import { Language, Tab } from './types';
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const [lang, setLang] = useState<Language>('fr');
+  const [aiPrompt, setAiPrompt] = useState<string | null>(null);
+
+  const handleAskAI = (prompt: string) => {
+    setAiPrompt(prompt);
+    setActiveTab('home');
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
-        return <ChatInterface lang={lang} setLang={setLang} />;
+        return <ChatInterface lang={lang} setLang={setLang} initialPrompt={aiPrompt} clearPrompt={() => setAiPrompt(null)} />;
       case 'expertise':
-        return <Expertise lang={lang} />;
-      case 'solutions':
-        return <Innovation lang={lang} />;
-      case 'values':
-        return <Values lang={lang} />;
+        return <Expertise lang={lang} onAskAI={handleAskAI} />;
+      case 'innovation':
+        return <Innovation lang={lang} onAskAI={handleAskAI} />;
+      case 'international':
+        return <International lang={lang} onAskAI={handleAskAI} />;
+      case 'about':
+        return <About lang={lang} />;
       case 'contact':
         return <Contact lang={lang} />;
       default:
-        return <ChatInterface lang={lang} setLang={setLang} />;
+        return <ChatInterface lang={lang} setLang={setLang} initialPrompt={aiPrompt} clearPrompt={() => setAiPrompt(null)} />;
     }
   };
 
