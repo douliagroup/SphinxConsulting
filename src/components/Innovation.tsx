@@ -53,7 +53,7 @@ export const Innovation: React.FC<InnovationProps> = ({ lang, onAskAI }) => {
                 className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
               >
                 <MessageSquare size={12} />
-                Sphinx-AI
+                {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
               </button>
             </div>
             <p className="text-white/60 text-sm">{sol.description}</p>

@@ -39,30 +39,32 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-md mx-auto bg-sphinx-black overflow-hidden relative shadow-2xl">
-      {/* Main Content Area */}
-      <main className="flex-1 relative overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="h-full"
-          >
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+    <div className="min-h-screen bg-black flex justify-center items-center font-sans text-white selection:bg-sphinx-red/30 p-0 md:p-8">
+      <div className="w-full max-w-md h-screen md:h-[850px] bg-sphinx-black relative overflow-hidden md:rounded-[3rem] md:border-[8px] md:border-white/10 md:shadow-2xl flex flex-col">
+        {/* Main Content Area */}
+        <main className="flex-1 relative overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="h-full"
+            >
+              {renderContent()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      {/* Navigation */}
-      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
+        {/* Navigation */}
+        <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20 overflow-hidden">
-        <div className="absolute -top-24 -left-24 w-64 h-64 bg-sphinx-red/30 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 -right-24 w-64 h-64 bg-sphinx-red/20 rounded-full blur-[100px]" />
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20 overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-sphinx-red/30 rounded-full blur-[100px]" />
+          <div className="absolute top-1/2 -right-24 w-64 h-64 bg-sphinx-red/20 rounded-full blur-[100px]" />
+        </div>
       </div>
     </div>
   );

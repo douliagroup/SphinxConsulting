@@ -63,7 +63,7 @@ export const International: React.FC<InternationalProps> = ({ lang, onAskAI }) =
                   className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
                 >
                   <MessageSquare size={12} />
-                  Sphinx-AI
+                  {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
                 </button>
               </div>
               <p className="text-sm text-white/50 leading-relaxed">{section.desc}</p>

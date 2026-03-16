@@ -34,6 +34,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
   const [isTtsEnabled, setIsTtsEnabled] = useState(false);
   const [isAuditOpen, setIsAuditOpen] = useState(false);
   const [isSummarizing, setIsSummarizing] = useState(false);
+  const [isConversationComplete, setIsConversationComplete] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
@@ -130,6 +131,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
     const lastMessage = messages[messages.length - 1];
     if (lastMessage && lastMessage.role === 'assistant' && !isTyping) {
       speak(lastMessage.content.replace(/\*\*/g, '')); // Remove markdown bold for speech
+      
+      // Check if conversation is complete based on AI response
+      if (lastMessage.content.includes("[COMPLETE]")) {
+        setIsConversationComplete(true);
+      }
     }
   }, [messages, isTyping]);
 
@@ -209,17 +215,22 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
         contents: text,
         config: {
           systemInstruction: `Tu es Sphinx-AI, l'assistant officiel de SPHINX Consulting. 
-          Tu es professionnel, stratégique, empathique et serviable. 
-          Réponds en ${lang === 'fr' ? 'français' : 'anglais'}.
+          Tu es un excellent guide : patient, compréhensif, stratégique et empathique.
           
-          CONSIGNES DE FORMATAGE CRUCIALES :
+          TON OBJECTIF CRUCIAL :
+          Avant de proposer des solutions détaillées, tu DOIS recueillir systématiquement les informations suivantes auprès de l'utilisateur :
+          1. Son Nom et Prénom.
+          2. Son Entreprise, Organisation, Ministère ou Structure.
+          3. Ses Besoins précis.
+          4. Ses Attentes vis-à-vis du cabinet.
+          
+          CONSIGNES DE FORMATAGE STRICTES :
           1. Mets TOUJOURS les TITRES et les MOTS CLÉS importants en GRAS (utilise la syntaxe Markdown **texte**).
-          2. Ne JAMAIS utiliser de balises HTML dans tes réponses.
-          3. Ne JAMAIS utiliser d'astérisques (*) pour les listes ou la décoration. L'astérisque ne doit servir QUE pour le gras (syntaxe **).
-          4. Pour lister des étapes, des niveaux ou des points, utilise EXCLUSIVEMENT des bulles numériques rondes (①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩).
-          5. Le texte doit être très AÉRÉ. Sépare bien tes paragraphes par des doubles sauts de ligne.
+          2. Les bulles numériques (①, ②, ③...) doivent TOUJOURS commencer sur une NOUVELLE LIGNE. Ne jamais les mettre à la suite d'une phrase sur la même ligne.
+          3. Sépare bien tes paragraphes par des doubles sauts de ligne.
+          4. Une fois que tu as recueilli TOUTES les informations (Nom, Structure, Besoins, Attentes), termine ton message par la balise invisible [COMPLETE] pour signaler que la discussion peut être résumée.
           
-          SPHINX Consulting est un cabinet de conseil spécialisé en Stratégie, Innovation et IA.`,
+          Réponds en ${lang === 'fr' ? 'français' : 'anglais'}.`,
         }
       });
 
@@ -314,7 +325,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
                       strong: ({node, ...props}) => <strong className="font-bold text-sphinx-red" {...props} />,
                     }}
                   >
-                    {msg.content}
+                    {msg.content.replace("[COMPLETE]", "")}
                   </ReactMarkdown>
 
                   {/* WhatsApp Button for Summaries */}
@@ -338,17 +349,24 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
               className="flex justify-start"
             >
               <div className="flex gap-2 items-center bg-white/5 p-3 rounded-2xl rounded-tl-none">
-                <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" />
-                <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce [animation-delay:0.2s]" />
-                <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce [animation-delay:0.4s]" />
+                <div className="flex flex-col gap-1">
+                  <span className="text-[10px] text-white/40 font-bold uppercase tracking-widest animate-pulse">
+                    Sphinx-AI analyse votre demande stratégique...
+                  </span>
+                  <div className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" />
+                    <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce [animation-delay:0.4s]" />
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Summary Action Button */}
-      {messages.length >= 2 && !isTyping && (
+      {/* Summary Action Button - Only shown when conversation is complete */}
+      {isConversationComplete && !isTyping && (
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -357,7 +375,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
           <button 
             onClick={handleSummarize}
             disabled={isSummarizing}
-            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white hover:bg-white/10 transition-all"
+            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)]"
           >
             <History size={14} />
             {lang === 'fr' ? 'Résumer & Contacter la Direction' : 'Summarize & Contact Management'}
