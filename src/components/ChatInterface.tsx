@@ -217,18 +217,16 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
           systemInstruction: `Tu es Sphinx-AI, l'assistant officiel de SPHINX Consulting. 
           Tu es un excellent guide : patient, compréhensif, stratégique et empathique.
           
-          TON OBJECTIF CRUCIAL :
-          Avant de proposer des solutions détaillées, tu DOIS recueillir systématiquement les informations suivantes auprès de l'utilisateur :
-          1. Son Nom et Prénom.
-          2. Son Entreprise, Organisation, Ministère ou Structure.
-          3. Ses Besoins précis.
-          4. Ses Attentes vis-à-vis du cabinet.
+          RÈGLES DE CONVERSATION :
+          1. Ne te présente JAMAIS après le premier message. Ne dis pas "Je suis Sphinx-AI" ou "Bienvenue" si la conversation a déjà commencé. Entre directement dans le vif du sujet.
+          2. Avant de proposer des solutions détaillées, tu DOIS recueillir systématiquement les informations suivantes : Nom/Prénom, Structure, Besoins, Attentes.
           
           CONSIGNES DE FORMATAGE STRICTES :
-          1. Mets TOUJOURS les TITRES et les MOTS CLÉS importants en GRAS (utilise la syntaxe Markdown **texte**).
-          2. Les bulles numériques (①, ②, ③...) doivent TOUJOURS commencer sur une NOUVELLE LIGNE. Ne jamais les mettre à la suite d'une phrase sur la même ligne.
-          3. Sépare bien tes paragraphes par des doubles sauts de ligne.
-          4. Une fois que tu as recueilli TOUTES les informations (Nom, Structure, Besoins, Attentes), termine ton message par la balise invisible [COMPLETE] pour signaler que la discussion peut être résumée.
+          1. Mets TOUJOURS les TITRES et les MOTS CLÉS importants en GRAS (**texte**).
+          2. Utilise EXCLUSIVEMENT les listes ordonnées Markdown standard (1., 2., 3.) pour les étapes ou points clés.
+          3. Chaque point de liste doit TOUJOURS être sur une NOUVELLE LIGNE avec un saut de ligne avant.
+          4. Sépare tes paragraphes par au moins DEUX sauts de ligne pour un texte très AÉRÉ.
+          5. Une fois toutes les infos recueillies, termine par [COMPLETE].
           
           Réponds en ${lang === 'fr' ? 'français' : 'anglais'}.`,
         }
@@ -321,11 +319,33 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
                 }`}>
                   <ReactMarkdown 
                     components={{
-                      p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                      p: ({node, ...props}) => <p className="mb-4 last:mb-0 leading-relaxed" {...props} />,
                       strong: ({node, ...props}) => <strong className="font-bold text-sphinx-red" {...props} />,
+                      ol: ({node, ...props}) => <ol className="space-y-4 my-6 list-none" {...props} />,
+                      li: ({node, ...props}) => (
+                        <li className="flex items-start gap-3 mb-3">
+                          <span className="flex-shrink-0 w-6 h-6 rounded-full bg-sphinx-red text-white flex items-center justify-center text-[10px] font-bold mt-0.5 shadow-sm border border-white/10">
+                            {/* We'll use a CSS counter for standard lists */}
+                            <span className="list-counter"></span>
+                          </span>
+                          <div className="flex-1">{props.children}</div>
+                        </li>
+                      ),
                     }}
                   >
-                    {msg.content.replace("[COMPLETE]", "")}
+                    {msg.content
+                      .replace("[COMPLETE]", "")
+                      .replace(/①/g, "1. ")
+                      .replace(/②/g, "2. ")
+                      .replace(/③/g, "3. ")
+                      .replace(/④/g, "4. ")
+                      .replace(/⑤/g, "5. ")
+                      .replace(/⑥/g, "6. ")
+                      .replace(/⑦/g, "7. ")
+                      .replace(/⑧/g, "8. ")
+                      .replace(/⑨/g, "9. ")
+                      .replace(/⑩/g, "10. ")
+                    }
                   </ReactMarkdown>
 
                   {/* WhatsApp Button for Summaries */}

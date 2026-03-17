@@ -11,7 +11,7 @@ export const ASSETS = {
 export const CONTENT = {
   fr: {
     chat: {
-      welcome: "Bienvenue chez **SPHINX Consulting** ! Je suis **Sphinx-AI**, votre assistant stratégique.\n\nJe peux vous accompagner sur plusieurs volets :\n\n① Explorer notre **Expertise** en **Santé Publique** et **Gouvernance**.\n② Découvrir nos **Solutions d'Innovation** technologique.\n③ Comprendre notre impact et notre **Rayonnement International**.\n④ Préparer un **Audit** ou une collaboration stratégique.\n\nComment puis-je vous aider à propulser vos projets aujourd'hui ?",
+      welcome: "Bienvenue chez **SPHINX Consulting** ! Je suis **Sphinx-AI**, votre assistant stratégique.\n\n\nJe peux vous accompagner sur plusieurs volets :\n\n\n① Explorer notre **Expertise** en **Santé Publique** et **Gouvernance**.\n\n② Découvrir nos **Solutions d'Innovation** technologique.\n\n③ Comprendre notre impact et notre **Rayonnement International**.\n\n④ Préparer un **Audit** ou une collaboration stratégique.\n\n\nComment puis-je vous aider à propulser vos projets aujourd'hui ?",
       placeholder: "Posez votre question...",
       switchLang: "Audit",
     },
@@ -147,7 +147,7 @@ export const CONTENT = {
   },
   en: {
     chat: {
-      welcome: "Welcome to **SPHINX Consulting**! I am **Sphinx-AI**, your strategic assistant.\n\nI can assist you in several areas:\n\n① Explore our **Expertise** in **Public Health** and **Governance**.\n② Discover our technological **Innovation Solutions**.\n③ Understand our impact and **International Reach**.\n④ Prepare an **Audit** or a strategic collaboration.\n\nHow can I help you propel your projects today?",
+      welcome: "Welcome to **SPHINX Consulting**! I am **Sphinx-AI**, your strategic assistant.\n\n\nI can assist you in several areas:\n\n\n① Explore our **Expertise** in **Public Health** and **Governance**.\n\n② Discover our technological **Innovation Solutions**.\n\n③ Understand our impact and **International Reach**.\n\n④ Prepare an **Audit** or a strategic collaboration.\n\n\nHow can I help you propel your projects today?",
       placeholder: "Ask your question...",
       switchLang: "Audit",
     },

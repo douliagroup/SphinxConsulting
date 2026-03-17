@@ -47,3 +47,12 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Chat list counter */
+ol {
+  counter-reset: sphinx-counter;
+}
+.list-counter::before {
+  counter-increment: sphinx-counter;
+  content: counter(sphinx-counter);
+}
