@@ -42,7 +42,7 @@ export const Expertise: React.FC<ExpertiseProps> = ({ lang, onAskAI }) => {
               </div>
             </div>
             
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-4">
               <div className="flex flex-wrap gap-2">
                 {domain.tags.map(tag => (
                   <span key={tag} className="text-[9px] px-2 py-1 bg-sphinx-red/10 text-sphinx-red border border-sphinx-red/20 rounded-full font-bold uppercase tracking-wider">
@@ -50,13 +50,15 @@ export const Expertise: React.FC<ExpertiseProps> = ({ lang, onAskAI }) => {
                   </span>
                 ))}
               </div>
-              <button 
-                onClick={() => onAskAI?.(`Parle-moi de votre expertise en : ${domain.title}. ${domain.desc}`)}
-                className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
-              >
-                <MessageSquare size={12} />
-                {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
-              </button>
+              <div className="flex justify-end pt-2 border-t border-white/5">
+                <button 
+                  onClick={() => onAskAI?.(`Parle-moi de votre expertise en : ${domain.title}. ${domain.desc}`)}
+                  className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
+                >
+                  <MessageSquare size={12} />
+                  {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
+                </button>
+              </div>
             </div>
           </motion.div>
         ))}

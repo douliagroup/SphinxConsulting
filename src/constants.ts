@@ -70,7 +70,7 @@ export const CONTENT = {
     },
     international: {
       title: "Rayonnement International",
-      subtitle: "Une présence stratégique et des standards mondiaux pour l'Afrique.",
+      subtitle: "Une présence stratégique et des standards mondiaux pour l'Afrique. Sphinx assure la représentation au Cameroun de plusieurs cabinets internationaux et reste ouvert à de nouveaux partenariats stratégiques.",
       sections: [
         {
           title: "Standards Mondiaux",
@@ -105,7 +105,7 @@ export const CONTENT = {
     },
     about: {
       title: "À Propos",
-      intro: "SPHINX CONSULTING est un cabinet de conseil stratégique et opérationnel de référence, spécialisé dans l'accompagnement des transformations sociales et sanitaires en Afrique Centrale. Sous la direction du Dr Jongwane TOKO, nous fusionnons la rigueur de la recherche académique avec l'agilité des nouvelles technologies. Notre force réside dans une approche multidisciplinaire unique, portée par un collège de Docteurs et Professeurs engagés pour le développement durable du continent.",
+      intro: "SPHINX CONSULTING est un cabinet de conseil stratégique et opérationnel de référence, spécialisé dans l'accompagnement des transformations sociales et sanitaires en Afrique Centrale. Sous la direction du Dr Jongwane TOKO, nous fusionnons la rigueur de la recherche académique avec l'agilité des nouvelles technologies. Notre force réside dans une approche multidisciplinaire unique, portée par un collège d'Experts engagés pour le développement durable du continent.",
       values: {
         title: "Valeurs Cardinales",
         items: [
@@ -131,6 +131,14 @@ export const CONTENT = {
         {
           q: "Proposez-vous des solutions sur mesure ?",
           a: "Absolument. Chaque intervention est unique et adaptée aux spécificités contextuelles et budgétaires de nos partenaires."
+        },
+        {
+          q: "Quelles sont vos expertises principales ?",
+          a: "Nous excellons en Santé Publique, Économie de la Santé, Gouvernance, Socio-Anthropologie et Innovation technologique (IA)."
+        },
+        {
+          q: "Intervenez-vous en dehors du Cameroun ?",
+          a: "Oui, Sphinx Consulting a un rayonnement international et intervient dans toute l'Afrique Centrale et au-delà pour des missions stratégiques."
         }
       ],
       name: "Nom",
@@ -206,7 +214,7 @@ export const CONTENT = {
     },
     international: {
       title: "International Reach",
-      subtitle: "Strategic presence and global standards for Africa.",
+      subtitle: "Strategic presence and global standards for Africa. Sphinx represents several international firms in Cameroon and remains open to new strategic partnerships.",
       sections: [
         {
           title: "Global Standards",
@@ -241,7 +249,7 @@ export const CONTENT = {
     },
     about: {
       title: "About Us",
-      intro: "SPHINX CONSULTING is a leading strategic and operational consulting firm, specialized in supporting social and health transformations in Central Africa. Under the direction of Dr. Jongwane TOKO, we merge the rigor of academic research with the agility of new technologies. Our strength lies in a unique multidisciplinary approach, carried out by a college of Doctors and Professors committed to the sustainable development of the continent.",
+      intro: "SPHINX CONSULTING is a leading strategic and operational consulting firm, specialized in supporting social and health transformations in Central Africa. Under the direction of Dr. Jongwane TOKO, we merge the rigor of academic research with the agility of new technologies. Our strength lies in a unique multidisciplinary approach, carried out by a college of Experts committed to the sustainable development of the continent.",
       values: {
         title: "Core Values",
         items: [
@@ -267,6 +275,14 @@ export const CONTENT = {
         {
           q: "Do you offer custom solutions?",
           a: "Absolutely. Every intervention is unique and adapted to the specific contextual and budgetary needs of our partners."
+        },
+        {
+          q: "What are your main areas of expertise?",
+          a: "We excel in Public Health, Health Economics, Governance, Socio-Anthropology, and technological Innovation (AI)."
+        },
+        {
+          q: "Do you operate outside of Cameroon?",
+          a: "Yes, Sphinx Consulting has an international reach and operates throughout Central Africa and beyond for strategic missions."
         }
       ],
       name: "Last Name",

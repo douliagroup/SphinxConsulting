@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Send, ChevronDown, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ChevronDown, Globe, MessageSquare } from 'lucide-react';
 import { CONTENT } from '../constants';
 import { Language } from '../types';
 
@@ -123,9 +123,20 @@ export const Contact: React.FC<ContactProps> = ({ lang }) => {
             <MapPin className="text-sphinx-red shrink-0" size={20} />
             <p className="text-sm text-white/70">{t.address}</p>
           </div>
-          <div className="flex items-center gap-4 glass-card p-4">
-            <Phone className="text-sphinx-red shrink-0" size={20} />
-            <p className="text-sm text-white/70">{t.phone}</p>
+          <div className="flex items-center justify-between glass-card p-4">
+            <div className="flex items-center gap-4">
+              <Phone className="text-sphinx-red shrink-0" size={20} />
+              <p className="text-sm text-white/70">{t.phone}</p>
+            </div>
+            <a 
+              href="https://wa.me/237672004201" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-1.5 bg-[#25D366] text-white rounded-full text-[10px] font-bold hover:scale-105 transition-transform"
+            >
+              <MessageSquare size={12} />
+              WhatsApp
+            </a>
           </div>
           <div className="flex items-center gap-4 glass-card p-4">
             <Mail className="text-sphinx-red shrink-0" size={20} />

@@ -56,8 +56,9 @@ export const International: React.FC<InternationalProps> = ({ lang, onAskAI }) =
               {icons[idx]}
             </div>
             <div className="space-y-2 flex-1">
-              <div className="flex items-center justify-between">
-                <h3 className="font-bold text-lg">{section.title}</h3>
+              <h3 className="font-bold text-lg">{section.title}</h3>
+              <p className="text-sm text-white/50 leading-relaxed">{section.desc}</p>
+              <div className="flex justify-end pt-2 border-t border-white/5">
                 <button 
                   onClick={() => onAskAI?.(`Explique-moi votre rôle international concernant : ${section.title}. ${section.desc}`)}
                   className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
@@ -66,7 +67,6 @@ export const International: React.FC<InternationalProps> = ({ lang, onAskAI }) =
                   {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
                 </button>
               </div>
-              <p className="text-sm text-white/50 leading-relaxed">{section.desc}</p>
             </div>
           </motion.div>
         ))}

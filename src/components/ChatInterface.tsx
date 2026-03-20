@@ -210,9 +210,19 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+      
+      // Prepare conversation history for the AI
+      const history = messages.map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }]
+      }));
+
       const model = ai.models.generateContent({
         model: "gemini-3.1-flash-lite-preview",
-        contents: text,
+        contents: [
+          ...history,
+          { role: 'user', parts: [{ text }] }
+        ],
         config: {
           systemInstruction: `Tu es Sphinx-AI, l'assistant officiel de SPHINX Consulting. 
           Tu es un excellent guide : patient, compréhensif, stratégique et empathique.
@@ -220,12 +230,13 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ lang, setLang, ini
           RÈGLES DE CONVERSATION :
           1. Ne te présente JAMAIS après le premier message. Ne dis pas "Je suis Sphinx-AI" ou "Bienvenue" si la conversation a déjà commencé. Entre directement dans le vif du sujet.
           2. Avant de proposer des solutions détaillées, tu DOIS recueillir systématiquement les informations suivantes : Nom/Prénom, Structure, Besoins, Attentes.
+          3. SOUVIENS-TOI de ce que l'utilisateur a dit précédemment pour une continuité parfaite.
           
           CONSIGNES DE FORMATAGE STRICTES :
           1. Mets TOUJOURS les TITRES et les MOTS CLÉS importants en GRAS (**texte**).
           2. Utilise EXCLUSIVEMENT les listes ordonnées Markdown standard (1., 2., 3.) pour les étapes ou points clés.
           3. Chaque point de liste doit TOUJOURS être sur une NOUVELLE LIGNE avec un saut de ligne avant.
-          4. Sépare tes paragraphes par au moins DEUX sauts de ligne pour un texte très AÉRÉ.
+          4. Sépare tes paragraphes par au moins DEUX sauts de ligne pour un texte très AÉRÉ. C'est CRUCIAL pour la lisibilité.
           5. Une fois toutes les infos recueillies, termine par [COMPLETE].
           
           Réponds en ${lang === 'fr' ? 'français' : 'anglais'}.`,

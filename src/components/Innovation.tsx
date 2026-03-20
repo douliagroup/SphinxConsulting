@@ -41,20 +41,11 @@ export const Innovation: React.FC<InnovationProps> = ({ lang, onAskAI }) => {
             transition={{ delay: idx * 0.1 }}
             className="glass-card p-6 space-y-4"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-3 bg-white/5 rounded-xl border border-white/10">
-                  {getIcon(sol.id)}
-                </div>
-                <h3 className="text-xl font-bold">{sol.title}</h3>
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+                {getIcon(sol.id)}
               </div>
-              <button 
-                onClick={() => onAskAI?.(`Détaille-moi la solution d'innovation : ${sol.title}. ${sol.description}`)}
-                className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
-              >
-                <MessageSquare size={12} />
-                {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
-              </button>
+              <h3 className="text-xl font-bold">{sol.title}</h3>
             </div>
             <p className="text-white/60 text-sm">{sol.description}</p>
             <div className="flex flex-wrap gap-2">
@@ -63,6 +54,15 @@ export const Innovation: React.FC<InnovationProps> = ({ lang, onAskAI }) => {
                   {f}
                 </span>
               ))}
+            </div>
+            <div className="flex justify-end pt-2 border-t border-white/5">
+              <button 
+                onClick={() => onAskAI?.(`Détaille-moi la solution d'innovation : ${sol.title}. ${sol.description}`)}
+                className="flex items-center gap-1 text-sphinx-red text-[10px] font-bold uppercase hover:underline"
+              >
+                <MessageSquare size={12} />
+                {lang === 'fr' ? 'EN SAVOIR PLUS ?' : 'LEARN MORE ?'}
+              </button>
             </div>
           </motion.div>
         ))}
